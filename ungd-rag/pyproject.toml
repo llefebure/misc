@@ -1,0 +1,22 @@
+[tool.poetry]
+name = "ungd-rag"
+version = "0.0.0"
+description = "RAG pipeline for UNGD speeches"
+authors = []
+license = "MIT"
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "3.10.*"
+pandas = {version = "*", extras = ["excel"]}
+typer = "*"
+tqdm = "^4.66.1"
+langchain = {version = "*", extras = ["openai", "qdrant"]}
+lark = "^1.1.7"
+streamlit = "^1.27.2"
+watchdog = "^3.0.0"
+
+
+[tool.poetry.group.dev.dependencies]
+ipykernel = "^6.25.2"
+

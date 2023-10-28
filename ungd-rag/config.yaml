@@ -1,0 +1,15 @@
+qdrant:
+  uri: http://localhost:6333
+  collection_name: "speech_parts"
+  collection_name_subset: "speech_parts_subset"
+data:
+  processed: data/processed.csv
+  processed_subset: data/processed_subset.csv
+  metadata_fn: data/Speakers_by_session.xlsx
+  docs_path: data/TXT
+unsc_members:
+  - USA
+  - FRA
+  - RUS
+  - CHN
+  - GBR

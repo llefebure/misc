@@ -1,0 +1,29 @@
+version: '3'
+
+tasks:
+
+  unzip-data:
+    desc: Unzip debate corpus
+    dir: data
+    cmds:
+      - tar -xf UNGDC_1946-2022.tgz
+
+  start-qdrant:
+    desc: Start qdrant
+    cmds:
+      - docker run -d -p 6333:6333 -p 6334:6334 -v $(pwd)/qdrant_storage:/qdrant/storage:z qdrant/qdrant:latest
+
+  preprocess:
+    desc: Save preprocessed versions of the raw data
+    cmds:
+      - poetry run python scripts/preprocess.py
+
+  index:
+    desc: Index data
+    cmds:
+      - poetry run python scripts/index.py --no-subset
+    
+  index-subset:
+    desc: Index data
+    cmds:
+      - poetry run python scripts/index.py --subset
