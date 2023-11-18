@@ -27,3 +27,8 @@ tasks:
     desc: Index data
     cmds:
       - poetry run python scripts/index.py --subset
+
+  run-app:
+    desc: Run streamlit app for QA experience
+    cmds:
+      - poetry run streamlit run app.py

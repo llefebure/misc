@@ -15,6 +15,8 @@ langchain = {version = "*", extras = ["openai", "qdrant"]}
 lark = "^1.1.7"
 streamlit = "^1.27.2"
 watchdog = "^3.0.0"
+transformers = "^4.34.1"
+sentence-transformers = "^2.2.2"
 
 
 [tool.poetry.group.dev.dependencies]

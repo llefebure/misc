@@ -1,8 +1,8 @@
-import re
 from pathlib import Path
 from typing import List
 
 import pandas as pd
+import regex as re
 import typer
 import yaml
 from tqdm import tqdm
@@ -15,7 +15,7 @@ tqdm.pandas()
 
 def paragraph_tokenize(text: str) -> List[str]:
     """Simple paragraph tokenization"""
-    return re.split(r"(?<=\.)\n", text)
+    return re.split(r"(?<=[\.\?]\s*)\n", text)
 
 
 def _load_and_preprocess(metadata_filename: str, docs_path: str) -> pd.DataFrame:

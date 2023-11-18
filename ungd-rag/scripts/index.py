@@ -3,7 +3,7 @@ import asyncio
 import pandas as pd
 import typer
 import yaml
-from langchain.embeddings import OpenAIEmbeddings
+from langchain.embeddings import HuggingFaceEmbeddings
 from langchain.schema.document import Document
 from langchain.vectorstores import Qdrant
 from qdrant_client import QdrantClient
@@ -28,7 +28,9 @@ async def _index_documents(
     for _, row in df.iterrows():
         row = row.to_dict()
         documents.append(Document(page_content=row.pop("text"), metadata=row))
-    embeddings_model = OpenAIEmbeddings()
+    embeddings_model = HuggingFaceEmbeddings(
+        model_name="sentence-transformers/all-MiniLM-L6-v2"
+    )
     return await Qdrant.afrom_documents(
         documents,
         embeddings_model,
