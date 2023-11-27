@@ -2,33 +2,33 @@ version: '3'
 
 tasks:
 
-  unzip-data:
+  data:unzip:
     desc: Unzip debate corpus
     dir: data
     cmds:
       - tar -xf UNGDC_1946-2022.tgz
-
-  start-qdrant:
-    desc: Start qdrant
-    cmds:
-      - docker run -d -p 6333:6333 -p 6334:6334 -v $(pwd)/qdrant_storage:/qdrant/storage:z qdrant/qdrant:latest
-
-  preprocess:
-    desc: Save preprocessed versions of the raw data
+  
+  data:preprocess:
+    desc: Save preprocessed versions of the raw data (joining metadata with speeches, chunking speeches, etc)
     cmds:
       - poetry run python scripts/preprocess.py
 
-  index:
-    desc: Index data
+  vector-db:start:
+    desc: Start qdrant vector db
+    cmds:
+      - docker run -d -p 6333:6333 -p 6334:6334 -v $(pwd)/qdrant_storage:/qdrant/storage:z qdrant/qdrant:latest
+
+  vector-db:index:
+    desc: Index data in the vector db
     cmds:
       - poetry run python scripts/index.py --no-subset
     
-  index-subset:
-    desc: Index data
+  vector-db:index-subset:
+    desc: Index data in the vector db (subset for testing purposes)
     cmds:
       - poetry run python scripts/index.py --subset
 
-  run-app:
+  app:run:
     desc: Run streamlit app for QA experience
     cmds:
       - poetry run streamlit run app.py

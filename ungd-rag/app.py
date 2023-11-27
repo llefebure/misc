@@ -1,5 +1,4 @@
 import logging
-import os
 
 import streamlit as st
 from langchain.chains import RetrievalQA
@@ -102,11 +101,11 @@ if prompt := st.chat_input("Ask a question..."):
     # Display assistant response in chat message container
     with st.chat_message("assistant"):
         st.write(response)
-    with st.expander("Source documents"):
-        for source_doc in source_docs:
-            st.write(str(source_doc.metadata))
+    for source_doc in source_docs:
+        with st.expander("Source document"):
+            for k, v in source_doc.metadata.items():
+                st.markdown(f"**{k}**: {v}")
             st.write(source_doc.page_content)
-            st.markdown("---")
 
     # Add assistant response to chat history
     st.session_state.messages.append({"role": "assistant", "content": response})
